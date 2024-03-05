@@ -1,11 +1,20 @@
-package org.example;
+package org.tools;
 
+import org.example.MyJobClass;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
 import static org.quartz.CronScheduleBuilder.cronSchedule;
 import static org.quartz.JobBuilder.newJob;
 import static org.quartz.TriggerBuilder.newTrigger;
+
+/**
+ *  <dependency>
+ *             <groupId>org.quartz-scheduler</groupId>
+ *             <artifactId>quartz</artifactId>
+ *             <version>2.3.0</version>
+ *         </dependency>
+ */
 
 public class Quartz {
     public static String quartz = "0 0 2 * * ?";
