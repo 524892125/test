@@ -27,7 +27,7 @@ public class MyJobClass implements Job {
         // 格式化输出日期时间
         String formattedDateTime = localDateTime.format(formatter);
         try {
-            StringToFileWriter.appendStringToFile(formattedDateTime, "time.txt");
+            StringToFileWriter.appendStringToFile(formattedDateTime + "\n", "time.txt");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
