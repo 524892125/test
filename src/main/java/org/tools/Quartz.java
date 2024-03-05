@@ -17,7 +17,7 @@ import static org.quartz.TriggerBuilder.newTrigger;
  */
 
 public class Quartz {
-    public static String quartz = "0 0 2 * * ?";
+    public static String quartz = "*/5 * * * * ?";
 
     public static void start () {
         try {
@@ -31,14 +31,14 @@ public class Quartz {
             JobDetail jobDetail = newJob(MyJobClass.class).withIdentity("myJob", "group1").build();
 
             // 定义trigger
-//        Trigger trigger = newTrigger().withIdentity("myTrigger", "group1")
-//                .startNow()
-//                .withSchedule(cronSchedule(quartz))
-//                .build();
-            Trigger trigger = newTrigger().withIdentity("myTrigger", "group1")
-                    .startNow()
-                    .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(5).repeatForever())
-                    .build();
+        Trigger trigger = newTrigger().withIdentity("myTrigger", "group1")
+                .startNow()
+                .withSchedule(cronSchedule(quartz))
+                .build();
+//            Trigger trigger = newTrigger().withIdentity("myTrigger", "group1")
+//                    .startNow()
+//                    .withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(5).repeatForever())
+//                    .build();
 
             // 将jobDetail和trigger注册到scheduler中
             scheduler.scheduleJob(jobDetail, trigger);

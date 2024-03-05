@@ -31,7 +31,7 @@ public class MyJobClass implements Job {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-//        System.out.println("当前时间（年月日时分秒毫秒）：" + formattedDateTime);
+        System.out.println("当前时间（年月日时分秒毫秒）：" + formattedDateTime);
 
 //        // 获取并打印年、月、日和毫秒
 //        int year = localDateTime.getYear();
