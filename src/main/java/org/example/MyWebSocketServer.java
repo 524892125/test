@@ -6,36 +6,36 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import java.net.InetSocketAddress;
-
-/**
- *   https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket
- *         <dependency>
- *             <groupId>org.java-websocket</groupId>
- *             <artifactId>Java-WebSocket</artifactId>
- *             <version>1.5.6</version>
- *         </dependency>
- */
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MyWebSocketServer extends WebSocketServer {
 
+    private Set<WebSocket> clients;
+
     public MyWebSocketServer(InetSocketAddress address) {
         super(address);
+        this.clients = Collections.synchronizedSet(new HashSet<>());
     }
 
     @Override
     public void onOpen(WebSocket conn, ClientHandshake handshake) {
         System.out.println("New connection: " + conn.getRemoteSocketAddress());
+        clients.add(conn);
     }
 
     @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
         System.out.println("Closed connection: " + conn.getRemoteSocketAddress() + " Reason: " + reason);
+        clients.remove(conn);
     }
 
     @Override
     public void onMessage(WebSocket conn, String message) {
         System.out.println("Received message from " + conn.getRemoteSocketAddress() + ": " + message);
-        conn.send("Echo: " + message);
+        sendMessageToAll("Client " + conn.getRemoteSocketAddress() + " says: " + message);
     }
 
     @Override
@@ -46,6 +46,14 @@ public class MyWebSocketServer extends WebSocketServer {
     @Override
     public void onStart() {
 
+    }
+
+    private void sendMessageToAll(String message) {
+        synchronized (clients) {
+            for (WebSocket client : clients) {
+                client.send(message);
+            }
+        }
     }
 
     public static void main(String[] args) {
