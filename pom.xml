@@ -63,17 +63,16 @@
             <version>3.4.1</version>
         </dependency>
 
+
+<!--        websocket-->
+        <!-- https://mvnrepository.com/artifact/org.java-websocket/Java-WebSocket -->
         <dependency>
-            <groupId>javax.websocket</groupId>
-            <artifactId>javax.websocket-api</artifactId>
-            <version>1.1</version>
+            <groupId>org.java-websocket</groupId>
+            <artifactId>Java-WebSocket</artifactId>
+            <version>1.5.6</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.glassfish.tyrus</groupId>
-            <artifactId>tyrus-client</artifactId>
-            <version>1.14</version>
-        </dependency>
+
 
     </dependencies>
 
@@ -104,6 +103,20 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+<!--                <groupId>org.apache.tomcat.maven</groupId>-->
+<!--                <artifactId>tomcat-maven-plugin</artifactId>-->
+<!--                <version>3.0.0</version> &lt;!&ndash; 可以根据需要选择最新版本 &ndash;&gt;-->
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>11.0.0-M18</version>
+                <configuration>
+                    <server>TomcatServer</server> <!-- 这里定义了一个名为TomcatServer的server，后续会配置该server -->
+                    <port>8080</port> <!-- Tomcat的端口 -->
+                    <path>/</path> <!-- 部署应用的路径 -->
+                </configuration>
             </plugin>
         </plugins>
     </build>
